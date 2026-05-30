@@ -56,7 +56,7 @@ nav {
 .nav-links { display: flex; gap: 2.5rem; list-style: none; }
 .nav-links a {
   color: var(--muted); text-decoration: none;
-  font-size: .75rem; letter-spacing: .1em; text-transform: uppercase;
+  font-size: .68rem; letter-spacing: .08em; text-transform: uppercase;
   transition: color .2s;
 }
 .nav-links a:hover { color: var(--fg); }
@@ -75,9 +75,10 @@ nav {
 .hero-top {
   padding: 2rem 1.5rem 3rem 1.5rem;
   border-bottom: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: end;
+  gap: 2rem;
 }
 .hero-top-left {
   display: flex; flex-direction: column; gap: 2rem;
@@ -445,6 +446,55 @@ footer {
   font-size: .95rem; color: var(--faint);
 }
 
+/* Crown & award badge */
+.card-crown { color: #A07840; font-size: .9rem; margin-right: 4px; }
+.card-award {
+  font-size: .68rem; letter-spacing: .06em;
+  color: #A07840; font-weight: 300;
+  margin-top: .3rem; display: block;
+}
+.card-desc-preview {
+  font-size: .82rem; color: var(--muted);
+  font-weight: 300; line-height: 1.7;
+  margin-top: .5rem;
+  display: -webkit-box; -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; overflow: hidden;
+}
+.card-expand-btn {
+  font-size: .72rem; color: var(--gold, #A07840);
+  background: none; border: none; cursor: pointer;
+  padding: 0; margin-top: .4rem;
+  font-family: var(--font-sans); letter-spacing: .04em;
+  text-decoration: underline; text-underline-offset: 3px;
+}
+
+/* Full description modal */
+.desc-modal-backdrop {
+  display: none; position: fixed; inset: 0; z-index: 901;
+  background: rgba(14,13,12,.55); backdrop-filter: blur(4px);
+  align-items: center; justify-content: center;
+}
+.desc-modal-backdrop.open { display: flex; }
+.desc-modal {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 4px; width: 90%; max-width: 620px;
+  max-height: 80vh; display: flex; flex-direction: column;
+  overflow: hidden; animation: modal-in .25s ease;
+}
+.desc-modal-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding: 1.5rem 2rem 1rem; border-bottom: 1px solid var(--border); flex-shrink: 0;
+}
+.desc-modal-title {
+  font-family: var(--font-serif); font-size: 1.3rem; font-weight: 900;
+  letter-spacing: -.01em; line-height: 1.2;
+}
+.desc-modal-body {
+  overflow-y: auto; padding: 1.5rem 2rem 2rem;
+  font-family: var(--font-serif2); font-style: italic;
+  font-size: .95rem; line-height: 1.9; color: #444;
+}
+
 /* YouTube embed */
 .yt-wrap {
   position: relative; width: 100%;
@@ -474,9 +524,9 @@ footer {
 /* ── RESPONSIVE ── */
 @media(max-width:960px){
   .nav-inner { padding: 0 1.5rem; }
-  .nav-links { display: none; }
+  .nav-links { display: flex; flex-wrap: wrap; gap: 1rem; }
   .hero-top { grid-template-columns: 1fr; }
-  .hero-top-left { border-right: none; min-height: auto; padding: 3rem 1.5rem 2rem; grid-column: span 1 !important; }
+  .hero-top-left { grid-column: span 1 !important; }
   .hero-top-right { padding: 1.5rem; }
   .hero-stats-bar { grid-template-columns: 1fr 1fr; }
   .hero-stat { padding: 1.25rem 1.5rem; }
@@ -498,13 +548,13 @@ footer {
   <div class="nav-inner">
     <a href="#" class="nav-logo">Ji.</a>
     <ul class="nav-links">
-      <li><a href="#" class="nav-tab" data-target="media-arts">Media Arts</a></li>
+      <li><a href="#" class="nav-tab" data-target="media-arts">Arts</a></li>
       <li><a href="#" class="nav-tab" data-target="music-video">Music Video</a></li>
-      <li><a href="#" class="nav-tab" data-target="short-movie">Short Movie</a></li>
+      <li><a href="#" class="nav-tab" data-target="movie">Movie</a></li>
       <li><a href="#" class="nav-tab" data-target="music">Music</a></li>
       <li><a href="#" class="nav-tab" data-target="article">Article</a></li>
+      <li><a href="#" class="nav-tab" data-target="broadcast">Broadcast</a></li>
     </ul>
-    <a href="mailto:daenerys.eubini@gmail.com" class="nav-cta">Contact</a>
   </div>
 </nav>
 
@@ -518,17 +568,9 @@ footer {
       <div style="font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem;">About</div>
       <div style="font-family:var(--font-serif);font-size:1.6rem;font-weight:900;letter-spacing:.05em;line-height:1;margin-bottom:1.25rem;text-transform:uppercase;">YUBIN KIM</div>
       <p class="hero-desc" style="text-align:right;font-size:.95rem;line-height:1.9;">
-        미디어아트와 영화, 음악, 뮤직비디오—<br>
-        여러 문법으로 콘텐츠를 전하는 스토리텔러입니다.<br>
-        모든 작업은 기억에 남는 순간을 위해 존재합니다.
+        아트, 영화, 음악, 뮤직비디오—<br>
+        다양한 문법으로 콘텐츠를 전하는 스토리텔러입니다.
       </p>
-      <div class="hero-categories" style="justify-content:flex-end;">
-        <a href="#" class="hero-cat-tag nav-tab" data-target="media-arts">Media Arts</a>
-        <a href="#" class="hero-cat-tag nav-tab" data-target="music-video">Music Video</a>
-        <a href="#" class="hero-cat-tag nav-tab" data-target="short-movie">Short Movie</a>
-        <a href="#" class="hero-cat-tag nav-tab" data-target="music">Music</a>
-        <a href="#" class="hero-cat-tag nav-tab" data-target="article">Article</a>
-      </div>
     </div>
   </div>
   <div class="hero-stats-bar">
@@ -544,16 +586,18 @@ footer {
   <div class="marquee-track">
     <div class="m-item"><div class="m-dot"></div>Media Arts</div>
     <div class="m-item"><div class="m-dot"></div>Music Video</div>
-    <div class="m-item"><div class="m-dot"></div>Short Movie</div>
+    <div class="m-item"><div class="m-dot"></div>Movie</div>
     <div class="m-item"><div class="m-dot"></div>Music</div>
+    <div class="m-item"><div class="m-dot"></div>Broadcast</div>
     <div class="m-item"><div class="m-dot"></div>Article</div>
     <div class="m-item"><div class="m-dot"></div>Visual Storytelling</div>
     <div class="m-item"><div class="m-dot"></div>Creative Direction</div>
     <div class="m-item"><div class="m-dot"></div>Seoul, Korea</div>
     <div class="m-item"><div class="m-dot"></div>Media Arts</div>
     <div class="m-item"><div class="m-dot"></div>Music Video</div>
-    <div class="m-item"><div class="m-dot"></div>Short Movie</div>
+    <div class="m-item"><div class="m-dot"></div>Movie</div>
     <div class="m-item"><div class="m-dot"></div>Music</div>
+    <div class="m-item"><div class="m-dot"></div>Broadcast</div>
     <div class="m-item"><div class="m-dot"></div>Article</div>
     <div class="m-item"><div class="m-dot"></div>Visual Storytelling</div>
     <div class="m-item"><div class="m-dot"></div>Creative Direction</div>
@@ -571,7 +615,7 @@ footer {
         <div>
           <h2 class="cat-title">Media<br><em>Arts</em></h2>
         </div>
-        <p class="cat-desc">설치, 퍼포먼스, 제너러티브 비주얼—<br>공간과 기술이 만나는 지점에서의 작업들.</p>
+        <p class="cat-desc">설치 · 퍼포먼스 · 제너러티브 비주얼</p>
         <span class="cat-count">3 works</span>
       </div>
       <div class="grid-media reveal">
@@ -625,7 +669,7 @@ footer {
         <div>
           <h2 class="cat-title">Music<br><em>Video</em></h2>
         </div>
-        <p class="cat-desc">음악이 그려내는 감정의 지형을<br>움직이는 이미지로 번역하는 작업들.</p>
+        <p class="cat-desc"></p>
         <span class="cat-count">2 works</span>
       </div>
       <div class="grid-mv reveal" style="grid-template-columns: repeat(2,1fr);">
@@ -634,8 +678,18 @@ footer {
             <iframe src="https://www.youtube.com/embed/HrYRBaAkC1s" allowfullscreen loading="lazy"></iframe>
           </div>
           <div class="card-body">
-            <div class="card-kicker kc-mv">Music Video</div>
-            <div class="card-title">—</div>
+            <div class="card-title">
+              Just a Cup of Coffee
+            </div>
+            <span class="card-award" style="display:flex;align-items:center;gap:5px;">
+              <svg width="13" height="10" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="11,0 18,9 22,3 22,14 0,14 0,3 4,9" fill="#FFD700" stroke="#E6B800" stroke-width="0.8" stroke-linejoin="round"/>
+                <rect x="0" y="13" width="22" height="3" rx="1" fill="#FFD700" stroke="#E6B800" stroke-width="0.8"/>
+              </svg>
+              AI International Film Festival 3관왕
+            </span>
+            <div class="card-desc-preview">"커피 한 잔 한 잔마다 조용한 기억의 무게가 담겨 있다" 횡단보도에서의 우연한 만남 - 떨어지는 휴대폰, 찰나의 시선, 운명이 개입한 듯한 느낌.</div>
+            <button class="card-expand-btn" onclick="openDescModal()">더 보기 →</button>
           </div>
         </div>
         <div class="card">
@@ -651,14 +705,14 @@ footer {
     </div>
   </section>
 
-  <!-- 03 SHORT MOVIE -->
-  <section class="cat-section" id="short-movie">
+  <!-- 03 MOVIE -->
+  <section class="cat-section" id="movie">
     <div class="section-wrap">
       <div class="cat-head reveal">
         <div>
-          <h2 class="cat-title">Short<br><em>Movie</em></h2>
+          <h2 class="cat-title">Mo<em>vie</em></h2>
         </div>
-        <p class="cat-desc">제한된 시간 안에서 최대한의 감정을—<br>단편이라는 형식이 가진 집중의 힘.</p>
+        <p class="cat-desc"></p>
         <span class="cat-count">1 work</span>
       </div>
       <div class="grid-short reveal" style="grid-template-columns: 1fr;">
@@ -680,9 +734,9 @@ footer {
     <div class="section-wrap">
       <div class="cat-head reveal">
         <div>
-          <h2 class="cat-title">Music</h2>
+          <h2 class="cat-title">Mu<em>sic</em></h2>
         </div>
-        <p class="cat-desc">소리로 쓰는 또 다른 언어—<br>직접 만들고 연주하고 기록한 음악 작업들.</p>
+        <p class="cat-desc"></p>
         <span class="cat-count">5 works</span>
       </div>
       <div class="grid-mv reveal" style="grid-template-columns: repeat(3,1fr);">
@@ -735,14 +789,33 @@ footer {
     </div>
   </section>
 
-  <!-- 05 ARTICLE -->
+  <!-- 05 BROADCAST -->
+  <section class="cat-section" id="broadcast">
+    <div class="section-wrap">
+      <div class="cat-head reveal">
+        <div>
+          <h2 class="cat-title">Broad<em>cast</em></h2>
+        </div>
+        <p class="cat-desc">정치 · 사회 이슈 방송 출연 및 해설</p>
+        <span class="cat-count">0 works</span>
+      </div>
+      <div class="reveal">
+        <div class="modal-empty">
+          <div class="modal-empty-icon">📺</div>
+          <div class="modal-empty-text">콘텐츠를 준비 중입니다.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 ARTICLE -->
   <section class="cat-section" id="article">
     <div class="section-wrap">
       <div class="cat-head reveal">
         <div>
-          <h2 class="cat-title">Article</h2>
+          <h2 class="cat-title">Arti<em>cle</em></h2>
         </div>
-        <p class="cat-desc">작업 안팎에서 발견한 생각들을<br>글의 형식으로 풀어낸 기록.</p>
+        <p class="cat-desc">정치 · 사회 · 경제 · 스포츠 기사들</p>
         <span class="cat-count">4 works</span>
       </div>
       <div class="grid-article reveal">
@@ -863,6 +936,49 @@ footer {
   </div>
 </div>
 
+<!-- DESC MODAL: Just a Cup of Coffee -->
+<div class="desc-modal-backdrop" id="desc-modal-coffee">
+  <div class="desc-modal">
+    <div class="desc-modal-header">
+      <div>
+        <div class="desc-modal-title">
+          <span style="display:inline-block;vertical-align:middle;margin-right:6px;">
+            <svg width="20" height="14" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="11,0 18,9 22,3 22,14 0,14 0,3 4,9" fill="#FFD700" stroke="#E6B800" stroke-width="0.8" stroke-linejoin="round"/>
+              <rect x="0" y="13" width="22" height="3" rx="1" fill="#FFD700" stroke="#E6B800" stroke-width="0.8"/>
+            </svg>
+          </span>Just a Cup of Coffee
+        </div>
+        <span class="card-award" style="display:flex;align-items:center;gap:5px;">
+          <svg width="12" height="9" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="11,0 18,9 22,3 22,14 0,14 0,3 4,9" fill="#FFD700" stroke="#E6B800" stroke-width="0.8" stroke-linejoin="round"/>
+            <rect x="0" y="13" width="22" height="3" rx="1" fill="#FFD700" stroke="#E6B800" stroke-width="0.8"/>
+          </svg>
+          AI International Film Festival 3관왕
+        </span>
+      </div>
+      <button class="modal-close" onclick="closeDescModal()">✕</button>
+    </div>
+    <div class="desc-modal-body">
+      <p>"커피 한 잔 한 잔마다 조용한 기억의 무게가 담겨 있다"</p>
+      <br>
+      <p>횡단보도에서의 우연한 만남 - 떨어지는 휴대폰, 찰나의 시선, 운명이 개입한 듯한 느낌. 아름다운 관계의 시작처럼 보인다.</p>
+      <br>
+      <p>하지만 조용한 카페 안에서 들어선 두 낯선 남녀의 달콤한 속삭임은 아주 사소한 디테일로 금이 간다.</p>
+      <br>
+      <p>그녀는 디카페인 커피를 주문한다. 카페인에 약하기 때문. 그 단순한 선택은, 그가 오래 전 묻어두었다고 생각한 어린 시절의 트라우마를 건드리고 만다.</p>
+      <br>
+      <p>그는 커피에 시럽을 붓는다. 그런데 너무 많이 붓고 말았다. 평범한 취향이다. 하지만 그녀 인생에서 가장 깊은 공허함 — 사랑했던 누군가의 상실 — 을 건드리고 만다.</p>
+      <br>
+      <p>둘 사이엔 침묵이 쌓인다. 그들이 다시 거리로 나섰을 땐, 보이지 않는 거리감이 형성되어 있다. 둘 다 도통 어떻게 건너야 할 지 모르겠는...</p>
+      <br>
+      <p>영화 전반에 걸쳐 초현실적인 투명 헬멧이 공중에 떠다닌다. 이는 각 인물들의 기억, 슬픔, 트라우마를 상징한다. 이 유동적인 구체들은 사람들을 서로 끌어당기는 동시에 보이지 않는 벽을 만든다.</p>
+      <br>
+      <p>모두가 각자의 투명한 장벽 뒤에 사는 세상. 두 낯선 남녀는 투명한 헬멧을 벗고 진정으로 서로를 바라볼 용기를 낼 수 있을까? 아니면 기억의 조용한 중력이 그들을 영원히 갈라 놓을까?</p>
+    </div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
@@ -897,6 +1013,18 @@ document.querySelectorAll('.nav-tab').forEach(a => {
   });
 });
 
+function openDescModal() {
+  document.getElementById('desc-modal-coffee').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeDescModal() {
+  document.getElementById('desc-modal-coffee').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('desc-modal-coffee').addEventListener('click', function(e) {
+  if (e.target === this) closeDescModal();
+});
+
 // 모달 열기
 function openModal(id) {
   document.getElementById('modal-' + id).classList.add('open');
@@ -925,7 +1053,7 @@ document.querySelectorAll('.stat-btn').forEach(btn => {
 function buildWorksModal() {
   const grid = document.getElementById('works-modal-grid');
   grid.innerHTML = '';
-  const sections = ['media-arts', 'music-video', 'short-movie', 'music'];
+  const sections = ['media-arts', 'music-video', 'movie', 'music', 'broadcast'];
   sections.forEach(id => {
     const sec = document.getElementById(id);
     if (!sec) return;

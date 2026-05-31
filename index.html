@@ -638,48 +638,9 @@ footer {
           <h2 class="cat-title">Media<br><em>Arts</em></h2>
         </div>
         <p class="cat-desc">설치 · 전시 · 제너러티브 비주얼<br><span style="font-size:.8rem;color:var(--faint);font-style:normal;">Installations · Exhibitions · Generative Visual Art</span></p>
-        <span class="cat-count">3 works</span>
+        <span class="cat-count">0 works</span>
       </div>
       <div class="grid-media reveal">
-        <div class="card">
-          <div class="card-thumb tb1">
-            <div class="card-thumb-inner th-hero">🌊</div>
-            <div class="play-overlay"><div class="play-btn">▶</div></div>
-          </div>
-          <div class="card-body">
-            <div class="card-kicker kc-media">Media Arts · Installation</div>
-            <div class="card-title">Fluid Memories</div>
-            <div class="card-desc">물과 데이터가 교차하는 인터랙티브 미디어 설치 작업. 국립현대미술관 전시.</div>
-            <div class="card-meta"><span>2024</span><span>Installation</span></div>
-          </div>
-          <div class="card-arrow">↗</div>
-        </div>
-        <div class="card">
-          <div class="card-thumb tb2">
-            <div class="card-thumb-inner th-side">⚡</div>
-            <div class="play-overlay"><div class="play-btn">▶</div></div>
-          </div>
-          <div class="card-body">
-            <div class="card-kicker kc-media">Media Arts · Performance</div>
-            <div class="card-title">Electric Pulse</div>
-            <div class="card-desc">실시간 사운드 반응 비주얼 퍼포먼스.</div>
-            <div class="card-meta"><span>2024</span></div>
-          </div>
-          <div class="card-arrow">↗</div>
-        </div>
-        <div class="card">
-          <div class="card-thumb tb3">
-            <div class="card-thumb-inner th-side">🌐</div>
-            <div class="play-overlay"><div class="play-btn">▶</div></div>
-          </div>
-          <div class="card-body">
-            <div class="card-kicker kc-media">Media Arts · Generative</div>
-            <div class="card-title">Data Garden</div>
-            <div class="card-desc">도시 데이터를 생태계로 시각화한 제너러티브 아트.</div>
-            <div class="card-meta"><span>2023</span></div>
-          </div>
-          <div class="card-arrow">↗</div>
-        </div>
       </div>
     </div>
   </section>
@@ -1439,7 +1400,16 @@ footer {
 
 <script>
 // 탭 전환
+function stopAllVideos() {
+  document.querySelectorAll('iframe').forEach(iframe => {
+    const src = iframe.src;
+    iframe.src = '';
+    iframe.src = src;
+  });
+}
+
 function showTab(target) {
+  stopAllVideos();
   document.querySelectorAll('.cat-section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(a => a.classList.remove('active'));
   const section = document.getElementById(target);
@@ -1467,6 +1437,7 @@ document.querySelectorAll('.nav-tab').forEach(a => {
 // MAIN 버튼 클릭
 document.querySelector('.nav-main').addEventListener('click', function(e) {
   e.preventDefault();
+  stopAllVideos();
   document.querySelector('.hero').style.display = '';
   const statsBar = document.querySelector('.hero-stats-bar');
   if (statsBar) statsBar.style.display = '';
@@ -1516,6 +1487,7 @@ document.getElementById('desc-modal-coffee').addEventListener('click', function(
 
 // 모달 열기
 function openModal(id) {
+  if (id === 'works') buildWorksModal();
   document.getElementById('modal-' + id).classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -1542,7 +1514,7 @@ document.querySelectorAll('.stat-btn').forEach(btn => {
 function buildWorksModal() {
   const grid = document.getElementById('works-modal-grid');
   grid.innerHTML = '';
-  const sections = ['media-arts', 'music-video', 'movie', 'music', 'broadcast'];
+  const sections = ['media-arts', 'music-video', 'movie', 'music', 'article', 'broadcast'];
   sections.forEach(id => {
     const sec = document.getElementById(id);
     if (!sec) return;
